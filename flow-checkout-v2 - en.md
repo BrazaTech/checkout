@@ -3,7 +3,7 @@
 - presenting a new release of flow of request on checkout v2.
 - All endpoint of operation are versioned, we start with v1 some else
 
-## Step one (Login):
+## Step one POST (Login):
 ### Request
 - Some informations are required at this moment username and password
 ```Shell
@@ -16,7 +16,7 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 }'
 ```
 ### Response
-```Javascript
+```JSON
 {
     "accessToken":"eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og",
     "refreshToken":"eyJjdHki <<.. Supressed Content..>> YIYb3YAyFN9u4F4V_m8R-w",
@@ -26,7 +26,7 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 ```
 - In this case we save accessToken and refreshToken, we use in some request on this flow
 
-## Step two (Rates)
+## Step two POST (Rates)
 ### Request to create a quotation
 After we save a some information on response of login, use a accessToken on header authorization (JWT Authentication).
 
@@ -42,7 +42,7 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/rates/v1/quotes' \
 }'
 ```
 ### Response of Quotes
-```Javascript
+```JSON
 {
     "pix": {
         "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
@@ -70,7 +70,7 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/rates/v1/quotes' \
 ```
 Now after we receive a response, save the code of quotation in this case "2b1e6e2a-184c-11ef-941b-0a58a9feac02". So, this information is necessary to generate a pix.
 
-## Step Three (Customer)
+## Step Three GET (Customer)
 ### Request to validate a CPF (a official brazilian social number)
 ```Shell
 curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
@@ -80,7 +80,7 @@ curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 ```
 ### Response of client (success)
 
-```Javascript
+```JSON
 {
     "clientId": "67f84c46-1216-4240-986d-2bbcc1b6d80a",
     "enabled": true
@@ -89,7 +89,7 @@ curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 
 ### Response of client (success, however, with pending registration)
 - This situation occurs when our service is unable to obtain information about the consumer.
-```Javascript
+```JSON
 {
   "clientId": "67f84c46-1216-4240-986d-2bbcc1b6d80a",
   "enabled": false,
@@ -116,7 +116,7 @@ First we call
 curl -L 'https://viacep.com.br/ws/66813420/json/'
 ```
 use this some fields of this response on next request body:
-```Javascript
+```JSON
 {
   "cep": "66813-420", //zipCode
   "logradouro": "Rua Sargento Joaquim Resende", //address
@@ -150,3 +150,69 @@ curl -L -X PATCH 'https://sandbox-client.brazacheckout.com.br/v1' \
   "email": "angelo.reis@braza.com.br"
 }'
 ```
+Response of patch
+
+```JSON
+{
+    "clientId": "67f84c46-1216-4240-986d-2bbcc1b6d80a",
+    "enabled": true
+}
+```
+
+So we use this value of clientId and id on Rates request (with alias name codQuote) to generate our pix:
+
+## Step Four POST (PIX)
+### Request to Create a PIX
+
+```Shell
+curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' \
+-d '{
+  "codQuote": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
+  "codCustomer": "67f84c46-1216-4240-986d-2bbcc1b6d80a"
+}'
+```
+
+### Response of PIX (success)
+
+```JSON
+{
+    "id": "1dc3c366-2417-4531-9c24-aa928b7add59",
+    "key": "a5480a17-6922-4606-ac18-f00a217ed771",
+    "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01iAwGlSpkZJPOJfjoMCKLGf2ZTk2lsgiOZu3l9DFlF52040000530398654071076.485802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***63048296",
+    "receiverName": "Braza Bank SA",
+    "receiverFinancialInstitutionName": "FLAGSHIP INSTITUICAO DE PAGAMENTOS LTDA",
+    "expirationDate": "2024-05-23T21:03:53.880Z",
+    "status": "CREATED"
+}
+```
+Now save de id, with alias invoiceIdPix.
+
+### Request GET status of pix
+```Shell
+curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/1dc3c366-2417-4531-9c24-aa928b7add59/status' \
+-H 'Accept: application/json' \
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
+```
+This endpoint respose a same of response above, but, adding some fields, (codPartner and CodBranchOffice):
+
+### Response of status of pix.
+We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
+```JSON 
+{
+    "id": "1dc3c366-2417-4531-9c24-aa928b7add59",
+    "key": "a5480a17-6922-4606-ac18-f00a217ed771",
+    "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01iAwGlSpkZJPOJfjoMCKLGf2ZTk2lsgiOZu3l9DFlF52040000530398654071076.485802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***63048296",
+    "receiverName": "Braza Bank SA",
+    "receiverFinancialInstitutionName": "FLAGSHIP INSTITUICAO DE PAGAMENTOS LTDA",
+    "expirationDate": "2024-05-23T21:03:53.880Z",
+    "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUND",
+    "codPartner": "06965ed3-708d-41d8-abf8-4722efb55658",
+    "codBranchOffice": "5730d33a-b64c-4cfa-b65b-c168613346b4"
+}
+```
+### End of cicle. That's All. Thank you.
+
+#### Any Questions open a issue.
