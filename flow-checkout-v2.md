@@ -6,7 +6,7 @@
 ## Step one POST (Login):
 ### Request
 - Some informations are required at this moment username and password
-```Shell
+```bash
 curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
@@ -30,7 +30,7 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 ### Request to create a quotation
 After we save a some information on response of login, use a accessToken on header authorization (JWT Authentication).
 
-```Shell
+```bash
 curl -L 'https://sandbox-api.brazacheckout.com.br/rates/v1/quotes' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
@@ -72,7 +72,7 @@ Now after we receive a response, save the code of quotation in this case "2b1e6e
 
 ## Step Three GET (Customer)
 ### Request to validate a CPF (a official brazilian social number)
-```Shell
+```bash
 curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 -H 'X-CLIENT-CPF: 999.999.999-99' \
 -H 'Accept: application/json' \
@@ -112,7 +112,7 @@ For more informations read [here](https://sandbox-client.brazacheckout.com.br/do
 ### If have a pending information call this:
 First we call
 
-```Shell
+```bash
 curl -L 'https://viacep.com.br/ws/66813420/json/'
 ```
 use this some fields of this response on next request body:
@@ -131,7 +131,7 @@ use this some fields of this response on next request body:
 }
 ```
 
-```Shell
+```bash
 curl -L -X PATCH 'https://sandbox-client.brazacheckout.com.br/v1' \
 -H 'X-CLIENT-CPF: 999.999.999-99' \
 -H 'Content-Type: application/json' \
@@ -164,7 +164,7 @@ So we use this value of clientId and id on Rates request (with alias name codQuo
 ## Step Four POST (PIX)
 ### Request to Create a PIX
 
-```Shell
+```bash
 curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
@@ -191,7 +191,7 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
 Now save de id, with alias invoiceIdPix.
 
 ### Request GET status of pix
-```Shell
+```bash
 curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/1dc3c366-2417-4531-9c24-aa928b7add59/status' \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
@@ -216,3 +216,63 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
 ### End of cicle. That's All. Thank you.
 
 #### Any Questions open a issue.
+
+### Track bonus - Accreditor, Partner and Branch Office information
+
+#### Request of information of Partner
+```bash
+curl -X 'GET' \
+  'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
+  -H 'accept: application/json'
+  -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
+```
+
+#### Response
+
+```JSON
+{
+  "id": "e5db089c-f1e8-47a3-9572-dd11dd47fd34",
+  "migrationId": "1234567890",
+  "legalName": "Example & Partner Ltd.",
+  "tradeName": "Store XYZ",
+  "wpsAccountNumber": "1234567890",
+  "observations": "This partner requires an exception on ...",
+  "description": "This partner is responsible for the sale of ...",
+  "logoImageUrl": "https://domain.com/my/image.jpg",
+  "userId": "a3b3c61e-664b-45d1-8fa3-fa70eaa17c5f",
+  "addressId": "19f3bac1-447a-4698-9f0c-b0d646bb7389",
+  "contactId": "9c9be699-1929-46f1-a441-04d449561cf7",
+  "statusReasonId": "570c1bf4-5685-459c-a49a-2cf887fc1fc1",
+  "managerId": "dc50049a-dd2b-4f6a-9c56-3e72301a9c69",
+  "statusId": "10b84634-3d7d-450d-995d-1a14833f2bdb",
+  "accreditedFlag": true,
+  "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
+}
+```
+
+#### Request information about 
+
+```bash
+curl -X 'PATCH' \
+  'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "migrationId": "1234567890",
+  "legalName": "Example & Partner Ltd.",
+  "tradeName": "Store XYZ",
+  "wpsAccountNumber": "1234567890",
+  "observations": "This partner requires an exception on ...",
+  "description": "This partner is responsible for the sale of ...",
+  "logoImageUrl": "https://domain.com/my/image.jpg",
+  "userId": "a3b3c61e-664b-45d1-8fa3-fa70eaa17c5f",
+  "addressId": "19f3bac1-447a-4698-9f0c-b0d646bb7389",
+  "contactId": "9c9be699-1929-46f1-a441-04d449561cf7",
+  "statusReasonId": "570c1bf4-5685-459c-a49a-2cf887fc1fc1",
+  "managerId": "dc50049a-dd2b-4f6a-9c56-3e72301a9c69",
+  "statusId": "10b84634-3d7d-450d-995d-1a14833f2bdb",
+  "accreditedFlag": true,
+  "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
+}'
+```
+
