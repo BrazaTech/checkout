@@ -221,10 +221,9 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
 
 #### Request of information of Partner
 ```bash
-curl -X 'GET' \
-  'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
-  -H 'accept: application/json'
-  -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
+curl -L 'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
+-H 'accept: application/json' \
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
 ```
 
 #### Response
@@ -250,3 +249,27 @@ curl -X 'GET' \
 }
 ```
 
+#### Request informations about accreditor by id
+```bash
+curl -L 'https://sandbox-api.brazacheckout.com.br/v1/accreditor/593facf1-93ad-42a0-8f37-1010f705c1d2' \
+-H 'accept: application/json' \
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
+```
+#### Response
+```JSON
+{
+  "id": "593facf1-93ad-42a0-8f37-1010f705c1d2",
+  "officialName": "Example & Partner Ltd",
+  "displayName": "Braza On Accreditor",
+  "brazaAccountUk": "9186249162",
+  "relationshipManagerPartnerId": "1234567890",
+  "internalDisclosure": "More LoreIpsum",
+  "logoPath": "https://domain.com/my/image.jpg",
+  "aboutAccreditor": "Lorem Ipsum",
+  "accreditorId": "123e4567-e89b-12d3-a456-426655440000",
+  "typeContact": 0,
+  "contentContact": "example@example.com",
+  "flagDeleted": 0,
+  "isDeleted": true
+}
+```
