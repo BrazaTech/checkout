@@ -250,29 +250,3 @@ curl -X 'GET' \
 }
 ```
 
-#### Request information about 
-
-```bash
-curl -X 'PATCH' \
-  'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "migrationId": "1234567890",
-  "legalName": "Example & Partner Ltd.",
-  "tradeName": "Store XYZ",
-  "wpsAccountNumber": "1234567890",
-  "observations": "This partner requires an exception on ...",
-  "description": "This partner is responsible for the sale of ...",
-  "logoImageUrl": "https://domain.com/my/image.jpg",
-  "userId": "a3b3c61e-664b-45d1-8fa3-fa70eaa17c5f",
-  "addressId": "19f3bac1-447a-4698-9f0c-b0d646bb7389",
-  "contactId": "9c9be699-1929-46f1-a441-04d449561cf7",
-  "statusReasonId": "570c1bf4-5685-459c-a49a-2cf887fc1fc1",
-  "managerId": "dc50049a-dd2b-4f6a-9c56-3e72301a9c69",
-  "statusId": "10b84634-3d7d-450d-995d-1a14833f2bdb",
-  "accreditedFlag": true,
-  "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
-}'
-```
-
