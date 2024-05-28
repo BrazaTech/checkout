@@ -273,3 +273,31 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/v1/accreditor/593facf1-93ad-42
   "isDeleted": true
 }
 ```
+
+#### List a sales by Id
+For this request we use a id of quotation to get a Sales information
+
+#### Request
+```bash
+curl -L 'https://sandbox-sales.brazacheckout.com.br/v1/2b1e6e2a-184c-11ef-941b-0a58a9feac02' \
+-H 'accept: application/json'
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
+```
+#### Response
+```JSON
+{
+  "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
+  "identifier": "NF-1234567890",
+  "clientName": "Michael Scott",
+  "clientCPF": "***.999.999-**",
+  "currency": "USDBRL",
+  "amount": 151.75,
+  "mdrValue": 1.75,
+  "liquidValue": 868.34,
+  "statusLabel": "Holding",
+  "statusName": "Aguardando",
+  "statusDescription": "O QR Code ainda não foi pago e o tempo de expiração ainda não foi alcançado.",
+  "date": "2024-01-01",
+  "time": "13:12:01"
+}
+```
