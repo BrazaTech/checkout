@@ -230,20 +230,21 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-
 
 ```JSON
 {
-  "id": "e5db089c-f1e8-47a3-9572-dd11dd47fd34",
   "migrationId": "1234567890",
   "legalName": "Example & Partner Ltd.",
   "tradeName": "Store XYZ",
-  "wpsAccountNumber": "1234567890",
+  "wpsAccountNumber": "99999.9999",
   "observations": "This partner requires an exception on ...",
   "description": "This partner is responsible for the sale of ...",
   "logoImageUrl": "https://domain.com/my/image.jpg",
-  "userId": "a3b3c61e-664b-45d1-8fa3-fa70eaa17c5f",
-  "addressId": "19f3bac1-447a-4698-9f0c-b0d646bb7389",
-  "contactId": "9c9be699-1929-46f1-a441-04d449561cf7",
-  "statusReasonId": "570c1bf4-5685-459c-a49a-2cf887fc1fc1",
-  "managerId": "dc50049a-dd2b-4f6a-9c56-3e72301a9c69",
-  "statusId": "10b84634-3d7d-450d-995d-1a14833f2bdb",
+  "address": {
+    "uuid": "string",
+    "streetName": "string",
+    "number": 0,
+    "city": "string",
+    "countryCod": 0,
+    "country": "string"
+  },
   "accreditedFlag": true,
   "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
 }
@@ -258,14 +259,14 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/v1/accreditor/593facf1-93ad-42
 #### Response
 ```JSON
 {
-  "id": "593facf1-93ad-42a0-8f37-1010f705c1d2",
+  "id": "123e4567-e89b-12d3-a456-426655440000",
   "officialName": "Example & Partner Ltd",
-  "displayName": "Braza On Accreditor",
-  "brazaAccountUk": "9186249162",
+  "displayName": "Braza On",
+  "brazaAccountUk": "312",
   "relationshipManagerPartnerId": "1234567890",
-  "internalDisclosure": "More LoreIpsum",
+  "internalDisclosure": "This partner requires an exception on ...",
   "logoPath": "https://domain.com/my/image.jpg",
-  "aboutAccreditor": "Lorem Ipsum",
+  "aboutAccreditor": "This partner requires an exception on ...",
   "accreditorId": "123e4567-e89b-12d3-a456-426655440000",
   "typeContact": 0,
   "contentContact": "example@example.com",
