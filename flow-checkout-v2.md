@@ -202,15 +202,20 @@ This endpoint respose a same of response above, but, adding some fields, (codPar
 We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
 ```JSON 
 {
-    "id": "1dc3c366-2417-4531-9c24-aa928b7add59",
-    "key": "a5480a17-6922-4606-ac18-f00a217ed771",
-    "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01iAwGlSpkZJPOJfjoMCKLGf2ZTk2lsgiOZu3l9DFlF52040000530398654071076.485802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***63048296",
-    "receiverName": "Braza Bank SA",
-    "receiverFinancialInstitutionName": "FLAGSHIP INSTITUICAO DE PAGAMENTOS LTDA",
-    "expirationDate": "2024-05-23T21:03:53.880Z",
-    "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUND",
-    "codPartner": "06965ed3-708d-41d8-abf8-4722efb55658",
-    "codBranchOffice": "5730d33a-b64c-4cfa-b65b-c168613346b4"
+  "id": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
+  "key": "de31d0d0-129e-45e5-b7ed-2176b416c005",
+  "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01YBsrpuoS8OhU1yq58aXQ9GeMHlDvdL7mL4AtzI7vK520400005303986540550.005802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***6304BD9E",
+  "receiverName": "Braza Bank SA",
+  "receiverFinancialInstitutionName": "Flagship",
+  "expirationDate": "2023-11-29T21:42:29.260Z",
+  "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUND",
+  "codPartner": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
+  "codBranchOffice": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
+  "amountPixToPay": "46.52",
+  "quoteValue": "5.76",
+  "amountFee": "0.49",
+  "iof": "0.38",
+  "iofPercentage": "0.2"
 }
 ```
 ### End of cicle. That's All. Thank you.
