@@ -19,7 +19,7 @@ def main():
     amount_of_operation_in_partner_currency = 123.45
     identifier_of_partner_transaction = faker.uuid4() # Here needs to be a partner transaction identifier
 
-    # Case you have a accreditor to use. To use this feature needs a specific permition on the API
+    # Case you have an accreditor to use. To use this feature needs a specific permission on the API
     accredited_name = None
     accredited_country = None
     quote = get_quote(access_token, pair_of_currency_to_exchange,amount_of_operation_in_partner_currency, 
