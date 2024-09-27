@@ -4,5 +4,5 @@
 
 - For more information visit [our website](https://www.brazabank.com.br/checkout/)
 - Flow of Checkout
-  - [v1 - closed integration](flow-checkout-v1.md)
-  - [v2](flow-checkout-v2.md)
+  - [1.0 - closed integration](flow-checkout-v1.md)
+  - [2.0 - LTS](flow-checkout-v2.md)
