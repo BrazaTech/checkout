@@ -1,0 +1,2780 @@
+{
+	"info": {
+		"_postman_id": "03939db0-011f-4272-8eaa-cdcf84bd5cd2",
+		"name": "Checkout V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "124552"
+	},
+	"item": [
+		{
+			"name": "Rates",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "quotes",
+							"item": [
+								{
+									"name": "Registry / simulate new quote",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var codQuote = pm.response.json().pix.id\r",
+													"pm.environment.set('codQuote',codQuote)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"amount\": 55.78,\n  \"currency\": \"USDBRL\",\n  \"externalId\": \"202406203143652\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{quotesUrl}}/v1/quotes",
+											"host": [
+												"{{quotesUrl}}"
+											],
+											"path": [
+												"v1",
+												"quotes"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"CADBRL\",\n  \"externalId\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/quotes",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"quotes"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"pix\": {\n    \"id\": \"<string>\",\n    \"fgnQuantity\": \"<number>\",\n    \"brlQuantity\": \"<number>\",\n    \"quote\": \"<number>\",\n    \"iof\": \"<number>\",\n    \"iofPercentage\": \"<number>\",\n    \"vet\": \"<number>\",\n    \"feesAmount\": \"<number>\",\n    \"mdrPayer\": \"<number>\"\n  },\n  \"internationalCard\": {\n    \"id\": \"<string>\",\n    \"fgnQuantity\": \"<number>\",\n    \"brlQuantity\": \"<number>\",\n    \"quote\": \"<number>\",\n    \"iof\": \"<number>\",\n    \"iofPercentage\": \"<number>\",\n    \"vet\": \"<number>\",\n    \"feesAmount\": \"<number>\",\n    \"mdrPayer\": \"<number>\"\n  }\n}"
+										},
+										{
+											"name": "USDBRL amount must be less than 10000",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"CADBRL\",\n  \"externalId\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/quotes",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"quotes"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"amount\": \"<number>\",\n  \"currency\": \"CADBRL\",\n  \"externalId\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/quotes",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"quotes"
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "healthcheck",
+							"item": [
+								{
+									"name": "Health Controller check",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{quotesUrl}}/v1/healthcheck",
+											"host": [
+												"{{quotesUrl}}"
+											],
+											"path": [
+												"v1",
+												"healthcheck"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "The Health Check is successful",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/healthcheck",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"healthcheck"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"sint_9f\": {\n      \"status\": \"<string>\",\n      \"in_2\": \"<string>\"\n    },\n    \"minim09b\": {\n      \"status\": \"<string>\",\n      \"consequatd2c\": \"<string>\",\n      \"Ut2\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"anim02\": {\n      \"status\": \"<string>\",\n      \"laboreb\": \"<string>\",\n      \"minim0\": \"<string>\"\n    },\n    \"non_c44\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"quis_8\": {\n      \"status\": \"<string>\",\n      \"do97\": \"<string>\"\n    },\n    \"est_c5\": {\n      \"status\": \"<string>\",\n      \"qui75\": \"<string>\"\n    }\n  }\n}"
+										},
+										{
+											"name": "The Health Check is not successful",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/healthcheck",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"healthcheck"
+													]
+												}
+											},
+											"status": "Service Unavailable",
+											"code": 503,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"occaecat1\": {\n      \"status\": \"<string>\",\n      \"elit_3\": \"<string>\",\n      \"utf\": \"<string>\"\n    },\n    \"elit_a\": {\n      \"status\": \"<string>\",\n      \"quis4\": \"<string>\",\n      \"deseruntc0c\": \"<string>\"\n    },\n    \"Ut_c_0\": {\n      \"status\": \"<string>\",\n      \"esse__6\": \"<string>\",\n      \"minim0\": \"<string>\",\n      \"fugiate_6\": \"<string>\",\n      \"utc\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"consequat_\": {\n      \"status\": \"<string>\",\n      \"elit_7dd\": \"<string>\",\n      \"quib\": \"<string>\",\n      \"nisi_ac\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"id_2_5\": {\n      \"status\": \"<string>\",\n      \"in_f4\": \"<string>\",\n      \"dolore_96d\": \"<string>\"\n    }\n  }\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "Validate the status of client register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var codCustomer = pm.response.json().clientId\r",
+											"pm.environment.set('codCustomer', codCustomer)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-CLIENT-CPF",
+										"value": "{{cpf}}",
+										"description": "(Required) Client CPF"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{clientUrl}}/v1",
+									"host": [
+										"{{clientUrl}}"
+									],
+									"path": [
+										"v1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Return client record status",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"clientId\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"pendent\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"code\": \"CPF003\"\n}"
+								},
+								{
+									"name": "The client with CPF can not continue",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "The cpf is not correct format",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "Not Acceptable",
+									"code": 406,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "The CPF was invalid format",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update the register with the pencences",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "X-CLIENT-CPF",
+										"value": "{{cpf}}",
+										"description": "(Required) Client CPF"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"phone\": \"(91) 99266-4715\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{clientUrl}}/v1",
+									"host": [
+										"{{clientUrl}}"
+									],
+									"path": [
+										"v1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Return client record with new status",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"cep\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"code\": \"<number>\",\n  \"neighborhood\": \"<string>\",\n  \"address\": \"<string>\",\n  \"number\": \"<number>\",\n  \"complement\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"clientId\": \"<string>\",\n  \"enabled\": \"<boolean>\",\n  \"pendent\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"code\": \"CPF003\"\n}"
+								},
+								{
+									"name": "The pre register expired",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"cep\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"code\": \"<number>\",\n  \"neighborhood\": \"<string>\",\n  \"address\": \"<string>\",\n  \"number\": \"<number>\",\n  \"complement\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"reason\": \"<string>\"\n}"
+								},
+								{
+									"name": "The pre register was not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "X-CLIENT-CPF",
+												"value": "<string>",
+												"description": "(Required) Client CPF"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"cep\": \"<string>\",\n  \"state\": \"<string>\",\n  \"city\": \"<string>\",\n  \"code\": \"<number>\",\n  \"neighborhood\": \"<string>\",\n  \"address\": \"<string>\",\n  \"number\": \"<number>\",\n  \"complement\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v1"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"reason\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "health",
+					"item": [
+						{
+							"name": "Health Controller check",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{clientUrl}}/health",
+									"host": [
+										"{{clientUrl}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "The Health Check is successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"Lorem4f\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"cillumc59\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"ullamco_90e\": {\n      \"status\": \"<string>\"\n    },\n    \"Lorem35\": {\n      \"status\": \"<string>\"\n    }\n  }\n}"
+								},
+								{
+									"name": "The Health Check is not successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Service Unavailable",
+									"code": 503,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"cupidatat_bc\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"in_13\": {\n      \"status\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"tempor_30\": {\n      \"status\": \"<string>\"\n    },\n    \"dolore0cf\": {\n      \"status\": \"<string>\"\n    },\n    \"sint602\": {\n      \"status\": \"<string>\"\n    },\n    \"id_3a8\": {\n      \"status\": \"<string>\"\n    }\n  }\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pix",
+			"item": [
+				{
+					"name": "health",
+					"item": [
+						{
+							"name": "Service health check",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{pixUrl}}/health",
+									"host": [
+										"{{pixUrl}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Untitled Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								},
+								{
+									"name": "Untitled Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Service Unavailable",
+									"code": 503,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "pix",
+							"item": [
+								{
+									"name": "{invoiceId}",
+									"item": [
+										{
+											"name": "status",
+											"item": [
+												{
+													"name": "Check Pix status",
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{accessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{pixUrl}}/v1/pix/:invoiceId/status",
+															"host": [
+																"{{pixUrl}}"
+															],
+															"path": [
+																"v1",
+																"pix",
+																":invoiceId",
+																"status"
+															],
+															"variable": [
+																{
+																	"key": "invoiceId",
+																	"value": "",
+																	"description": "Invoice ID, get id from response of request to create pix"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "Untitled Response",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "application/json"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/v1/pix/:invoiceId/status",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"v1",
+																		"pix",
+																		":invoiceId",
+																		"status"
+																	],
+																	"variable": [
+																		{
+																			"key": "invoiceId"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"<string>\",\n  \"key\": \"<string>\",\n  \"qrcode\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"receiverFinancialInstitutionName\": \"<string>\",\n  \"expirationDate\": \"<string>\",\n  \"status\": \"<string>\",\n  \"codPartner\": \"<string>\",\n  \"codBranchOffice\": \"<string>\"\n}"
+														}
+													]
+												},
+												{
+													"name": "Send payment link",
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{accessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{pixUrl}}/v1/pix/send-payment-link/:invoiceId",
+															"host": [
+																"{{pixUrl}}"
+															],
+															"path": [
+																"v1",
+																"pix",
+																"send-payment-link",
+																":invoiceId"
+															],
+															"variable": [
+																{
+																	"key": "invoiceId",
+																	"value": "",
+																	"description": "Invoice ID, get id from response of request to create pix"
+																}
+															]
+														}
+													},
+													"response": [
+														{
+															"name": "Untitled Response",
+															"originalRequest": {
+																"method": "GET",
+																"header": [
+																	{
+																		"key": "Accept",
+																		"value": "application/json"
+																	}
+																],
+																"url": {
+																	"raw": "{{baseUrl}}/v1/pix/:invoiceId/status",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"v1",
+																		"pix",
+																		":invoiceId",
+																		"status"
+																	],
+																	"variable": [
+																		{
+																			"key": "invoiceId"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "json",
+															"header": [
+																{
+																	"key": "Content-Type",
+																	"value": "application/json"
+																}
+															],
+															"cookie": [],
+															"body": "{\n  \"id\": \"<string>\",\n  \"key\": \"<string>\",\n  \"qrcode\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"receiverFinancialInstitutionName\": \"<string>\",\n  \"expirationDate\": \"<string>\",\n  \"status\": \"<string>\",\n  \"codPartner\": \"<string>\",\n  \"codBranchOffice\": \"<string>\"\n}"
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Create pix",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var invoiceIdPix = pm.response.json().id\r",
+													"var qrCodeContent = pm.response.json().qrcode\r",
+													"\r",
+													"pm.environment.set('invoiceIdPix', invoiceIdPix)\r",
+													"pm.environment.set('qrCodeContent', qrCodeContent)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{accessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"codQuote\": \"{{codQuote}}\",\n  \"codCustomer\": \"{{codCustomer}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{pixUrl}}/v1/pix",
+											"host": [
+												"{{pixUrl}}"
+											],
+											"path": [
+												"v1",
+												"pix"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"codQuote\": \"<string>\",\n  \"codCustomer\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/pix",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"pix"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"key\": \"<string>\",\n  \"qrcode\": \"<string>\",\n  \"receiverName\": \"<string>\",\n  \"receiverFinancialInstitutionName\": \"<string>\",\n  \"expirationDate\": \"<string>\",\n  \"status\": \"<string>\"\n}"
+										},
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"codQuote\": \"<string>\",\n  \"codCustomer\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/pix",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"pix"
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"message\": \"<string>\",\n  \"error\": \"<string>\",\n  \"statusCode\": \"<number>\"\n}"
+										},
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"codQuote\": \"<string>\",\n  \"codCustomer\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/pix",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"pix"
+													]
+												}
+											},
+											"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+											"code": 422,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"message\": \"<string>\",\n  \"error\": \"<string>\",\n  \"statusCode\": \"<number>\"\n}"
+										},
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"codQuote\": \"<string>\",\n  \"codCustomer\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/v1/pix",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"pix"
+													]
+												}
+											},
+											"status": "Service Unavailable",
+											"code": 503,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"message\": \"<string>\",\n  \"error\": \"<string>\",\n  \"statusCode\": \"<number>\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "information",
+							"item": [
+								{
+									"name": "details",
+									"item": [
+										{
+											"name": "Getting data from user",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/users/information/details",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"users",
+														"information",
+														"details"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "User Data",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/information/details",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"information",
+																"details"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"userFullName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"partnerName\": \"<string>\",\n  \"filialName\": \"<string>\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "health",
+					"item": [
+						{
+							"name": "Health Controller get Health",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{authUrl}}/health",
+									"host": [
+										"{{authUrl}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Untitled Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								},
+								{
+									"name": "Untitled Response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Service Unavailable",
+									"code": 503,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"item": [
+								{
+									"name": "Do Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Stores the accessToken in an environment or global variable\r",
+													"var accessToken = pm.response.json().accessToken;\r",
+													"var refreshToken = pm.response.json().refreshToken;\r",
+													"pm.environment.set(\"accessToken\", accessToken);\r",
+													"pm.environment.set(\"refreshToken\", refreshToken);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"username\": \"{{user}}\",\n  \"password\": \"{{pass}}\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{authUrl}}/auth/login",
+											"host": [
+												"{{authUrl}}"
+											],
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/auth/login",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"auth",
+														"login"
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"ttl\": \"<number>\",\n  \"username\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "refresh-token",
+							"item": [
+								{
+									"name": "Do Refresh authorization token",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"refreshToken\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{authUrl}}/auth/refresh-token",
+											"host": [
+												"{{authUrl}}"
+											],
+											"path": [
+												"auth",
+												"refresh-token"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"refreshToken\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/auth/refresh-token",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"auth",
+														"refresh-token"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"accessToken\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"ttl\": \"<number>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "validate-token",
+							"item": [
+								{
+									"name": "Do validation authorization token",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"token\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{authUrl}}/auth/validate-token",
+											"host": [
+												"{{authUrl}}"
+											],
+											"path": [
+												"auth",
+												"validate-token"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"token\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/auth/validate-token",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"auth",
+														"validate-token"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"token_use\": \"<string>\",\n  \"auth_time\": \"<number>\",\n  \"exp\": \"<number>\",\n  \"username\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "request-change-password",
+							"item": [
+								{
+									"name": "Do request to change password",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"token\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{authUrl}}/auth/request-change-password",
+											"host": [
+												"{{authUrl}}"
+											],
+											"path": [
+												"auth",
+												"request-change-password"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"token\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/auth/request-change-password",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"auth",
+														"request-change-password"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"token_use\": \"<string>\",\n  \"auth_time\": \"<number>\",\n  \"exp\": \"<number>\",\n  \"username\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "change-password",
+							"item": [
+								{
+									"name": "Change password",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"prevPassword\": \"<string>\",\n  \"newPassword\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{authUrl}}/auth/change-password",
+											"host": [
+												"{{authUrl}}"
+											],
+											"path": [
+												"auth",
+												"change-password"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"prevPassword\": \"<string>\",\n  \"newPassword\": \"<string>\",\n  \"token\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/auth/change-password",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"auth",
+														"change-password"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "health",
+					"item": [
+						{
+							"name": "Health Controller check",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{salesUrl}}/health",
+									"host": [
+										"{{salesUrl}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "The Health Check is successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"id4f\": {\n      \"status\": \"<string>\",\n      \"enim0\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"ex_e9\": {\n      \"status\": \"<string>\",\n      \"officia_27\": \"<string>\",\n      \"in6da\": \"<string>\",\n      \"aute_1bb\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"laborisf5e\": {\n      \"status\": \"<string>\"\n    },\n    \"Duis60\": {\n      \"status\": \"<string>\",\n      \"sed06\": \"<string>\"\n    }\n  }\n}"
+								},
+								{
+									"name": "The Health Check is not successful",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Service Unavailable",
+									"code": 503,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<string>\",\n  \"info\": {\n    \"cillum_4\": {\n      \"status\": \"<string>\",\n      \"sed_2\": \"<string>\"\n    },\n    \"enim_4e\": {\n      \"status\": \"<string>\",\n      \"incididunt__5\": \"<string>\",\n      \"nulla36\": \"<string>\"\n    }\n  },\n  \"error\": {\n    \"Excepteurd\": {\n      \"status\": \"<string>\",\n      \"anim_3a9\": \"<string>\",\n      \"voluptate_df2\": \"<string>\"\n    },\n    \"consecteturf9\": {\n      \"status\": \"<string>\",\n      \"exercitation_4b\": \"<string>\",\n      \"culpa_8\": \"<string>\"\n    }\n  },\n  \"details\": {\n    \"ipsum75\": {\n      \"status\": \"<string>\",\n      \"minim_d72\": \"<string>\",\n      \"ut4\": \"<string>\"\n    }\n  }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "{saleId}",
+							"item": [
+								{
+									"name": "Get Sales information by id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{bearerToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{salesUrl}}/v1/:saleId",
+											"host": [
+												"{{salesUrl}}"
+											],
+											"path": [
+												"v1",
+												":saleId"
+											],
+											"variable": [
+												{
+													"key": "saleId",
+													"value": "<string>",
+													"description": "(Required) The sale Id or quote Id"
+												}
+											]
+										},
+										"description": "This endpoint give the sales attached on branch officer of cashier"
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/:saleId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														":saleId"
+													],
+													"variable": [
+														{
+															"key": "saleId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"identifier\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"clientCPF\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"mdrValue\": \"<number>\",\n  \"liquidValue\": \"<number>\",\n  \"statusLabel\": \"success\",\n  \"statusName\": \"Recebido\",\n  \"statusDescription\": \"<string>\",\n  \"date\": \"<string>\",\n  \"time\": \"<string>\",\n  \"statusId\": \"<number>\"\n}"
+										},
+										{
+											"name": "Sale not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/:saleId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														":saleId"
+													],
+													"variable": [
+														{
+															"key": "saleId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "all",
+							"item": [
+								{
+									"name": "Get list of Sales information",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{bearerToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{salesUrl}}/v1/all?offset=<number>&limit=<number>&sort_by=date&sort_order=DESC&status=holding&mysales=<boolean>&dateStart=<string>&dateEnd=<string>",
+											"host": [
+												"{{salesUrl}}"
+											],
+											"path": [
+												"v1",
+												"all"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "<number>",
+													"description": "Offset for pagination"
+												},
+												{
+													"key": "limit",
+													"value": "<number>",
+													"description": "Number of items to return"
+												},
+												{
+													"key": "sort_by",
+													"value": "date",
+													"description": "Field to sort by"
+												},
+												{
+													"key": "sort_order",
+													"value": "DESC",
+													"description": "Offset for pagination"
+												},
+												{
+													"key": "status",
+													"value": "holding",
+													"description": "Offset for pagination"
+												},
+												{
+													"key": "mysales",
+													"value": "<boolean>",
+													"description": "Filter for only sales generated by the logged-in user"
+												},
+												{
+													"key": "dateStart",
+													"value": "<string>",
+													"description": "Filter for start date"
+												},
+												{
+													"key": "dateEnd",
+													"value": "<string>",
+													"description": "Filter for start end"
+												}
+											]
+										},
+										"description": "This endpoint give the sales attached on branch officer of cashier"
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/all?offset=<number>&limit=<number>&sort_by=date&sort_order=DESC&status=holding&mysales=<boolean>&dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"all"
+													],
+													"query": [
+														{
+															"key": "offset",
+															"value": "<number>",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "limit",
+															"value": "<number>",
+															"description": "Number of items to return"
+														},
+														{
+															"key": "sort_by",
+															"value": "date",
+															"description": "Field to sort by"
+														},
+														{
+															"key": "sort_order",
+															"value": "DESC",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "status",
+															"value": "holding",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "mysales",
+															"value": "<boolean>",
+															"description": "Filter for only sales generated by the logged-in user"
+														},
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "Filter for start date"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "Filter for start end"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"clientName\": \"<string>\",\n    \"clientCPF\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"mdrValue\": \"<number>\",\n    \"liquidValue\": \"<number>\",\n    \"statusLabel\": \"success\",\n    \"statusName\": \"Devolvido\",\n    \"statusDescription\": \"<string>\",\n    \"date\": \"<string>\",\n    \"time\": \"<string>\",\n    \"statusId\": \"<number>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"identifier\": \"<string>\",\n    \"clientName\": \"<string>\",\n    \"clientCPF\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"mdrValue\": \"<number>\",\n    \"liquidValue\": \"<number>\",\n    \"statusLabel\": \"canceled\",\n    \"statusName\": \"Inválido\",\n    \"statusDescription\": \"<string>\",\n    \"date\": \"<string>\",\n    \"time\": \"<string>\",\n    \"statusId\": \"<number>\"\n  }\n]"
+										},
+										{
+											"name": "Sales not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v1/all?offset=<number>&limit=<number>&sort_by=date&sort_order=DESC&status=holding&mysales=<boolean>&dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v1",
+														"all"
+													],
+													"query": [
+														{
+															"key": "offset",
+															"value": "<number>",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "limit",
+															"value": "<number>",
+															"description": "Number of items to return"
+														},
+														{
+															"key": "sort_by",
+															"value": "date",
+															"description": "Field to sort by"
+														},
+														{
+															"key": "sort_order",
+															"value": "DESC",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "status",
+															"value": "holding",
+															"description": "Offset for pagination"
+														},
+														{
+															"key": "mysales",
+															"value": "<boolean>",
+															"description": "Filter for only sales generated by the logged-in user"
+														},
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "Filter for start date"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "Filter for start end"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "v2",
+					"item": [
+						{
+							"name": "{saleId}",
+							"item": [
+								{
+									"name": "Get Sales information by id",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{bearerToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{salesUrl}}/v2/:saleId",
+											"host": [
+												"{{salesUrl}}"
+											],
+											"path": [
+												"v2",
+												":saleId"
+											],
+											"variable": [
+												{
+													"key": "saleId",
+													"value": "<string>",
+													"description": "(Required) The sale Id or quote Id"
+												}
+											]
+										},
+										"description": "This endpoint give the sales attached on branch officer of cashier"
+									},
+									"response": [
+										{
+											"name": "Untitled Response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/:saleId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														":saleId"
+													],
+													"variable": [
+														{
+															"key": "saleId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"identifier\": \"<string>\",\n  \"clientName\": \"<string>\",\n  \"clientCPF\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"mdrValue\": \"<number>\",\n  \"liquidValue\": \"<number>\",\n  \"statusLabel\": \"success\",\n  \"statusName\": \"Recebido\",\n  \"statusDescription\": \"<string>\",\n  \"date\": \"<string>\",\n  \"time\": \"<string>\",\n  \"statusId\": \"<number>\"\n}"
+										},
+										{
+											"name": "Sale not Found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/:saleId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														":saleId"
+													],
+													"variable": [
+														{
+															"key": "saleId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "checkout-transactions",
+							"item": [
+								{
+									"name": "Sales Controller get Checkout Transactions",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{bearerToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"description": "(Required) CPF of the user",
+												"key": "cpf",
+												"value": "<string>"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{salesUrl}}/v2/checkout-transactions?dateStart=<string>&dateEnd=<string>",
+											"host": [
+												"{{salesUrl}}"
+											],
+											"path": [
+												"v2",
+												"checkout-transactions"
+											],
+											"query": [
+												{
+													"key": "dateStart",
+													"value": "<string>",
+													"description": "(Required) Start date for the transaction search period"
+												},
+												{
+													"key": "dateEnd",
+													"value": "<string>",
+													"description": "(Required) End date for the transaction search period"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successfully fetched transactions",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "(Required) CPF of the user",
+														"key": "cpf",
+														"value": "<string>"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/checkout-transactions?dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"checkout-transactions"
+													],
+													"query": [
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "(Required) Start date for the transaction search period"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "(Required) End date for the transaction search period"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"transactions\": [\n    {\n      \"storeName\": \"<string>\",\n      \"paidAmountPix\": \"<number>\",\n      \"foreignCurrencyAmount\": \"<number>\",\n      \"currencyIso\": \"<string>\",\n      \"exchangeRate\": \"<number>\",\n      \"iof\": \"<number>\",\n      \"vet\": \"<number>\",\n      \"Quotation Id\": \"<string>\",\n      \"paymentDate\": \"<string>\",\n      \"receiptPath\": \"<string>\"\n    },\n    {\n      \"storeName\": \"<string>\",\n      \"paidAmountPix\": \"<number>\",\n      \"foreignCurrencyAmount\": \"<number>\",\n      \"currencyIso\": \"<string>\",\n      \"exchangeRate\": \"<number>\",\n      \"iof\": \"<number>\",\n      \"vet\": \"<number>\",\n      \"Quotation Id\": \"<string>\",\n      \"paymentDate\": \"<string>\",\n      \"receiptPath\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Bad Request: Missing or invalid parameters",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "(Required) CPF of the user",
+														"key": "cpf",
+														"value": "<string>"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/checkout-transactions?dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"checkout-transactions"
+													],
+													"query": [
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "(Required) Start date for the transaction search period"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "(Required) End date for the transaction search period"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Unauthorized: Missing or invalid authentication",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "(Required) CPF of the user",
+														"key": "cpf",
+														"value": "<string>"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/checkout-transactions?dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"checkout-transactions"
+													],
+													"query": [
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "(Required) Start date for the transaction search period"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "(Required) End date for the transaction search period"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Bad Gateway: Internal error occurred, try again later",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"description": "(Required) CPF of the user",
+														"key": "cpf",
+														"value": "<string>"
+													},
+													{
+														"description": "Added as a part of security scheme: bearer",
+														"key": "Authorization",
+														"value": "Bearer <token>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/v2/checkout-transactions?dateStart=<string>&dateEnd=<string>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v2",
+														"checkout-transactions"
+													],
+													"query": [
+														{
+															"key": "dateStart",
+															"value": "<string>",
+															"description": "(Required) Start date for the transaction search period"
+														},
+														{
+															"key": "dateEnd",
+															"value": "<string>",
+															"description": "(Required) End date for the transaction search period"
+														}
+													]
+												}
+											},
+											"status": "Bad Gateway",
+											"code": 502,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
