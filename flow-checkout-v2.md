@@ -220,11 +220,11 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
 }
 ```
 ### How to simulate a paid pix
-We open an endpoint to simulate a paid pix, so just use a invoicePixId on this service
+We open an endpoint to simulate a paid pix, so just use a invoiceIdPix on this service
 
 #### Request (JUST FOR SANDBOX MODE)
 ```bash
-curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoicePixId}'
+curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoiceIdPix}'
 ```
 
 
