@@ -224,9 +224,12 @@ We open an endpoint to simulate a paid pix, so just use a invoiceIdPix on this s
 
 #### Request (JUST FOR SANDBOX MODE)
 ```bash
-curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoiceIdPix}'
+curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoiceIdPix}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "taxId":"{cpfOfCustomer}"
+}'
 ```
-
 
 ### End of cicle. That's All. Thank you.
 
