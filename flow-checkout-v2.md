@@ -1,3 +1,4 @@
+- [Return to readme](readme.md)
 # Flow of Checkout v2
 
 - presenting a new release of flow of request on checkout v2.
@@ -218,6 +219,15 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
   "iofPercentage": "0.2"
 }
 ```
+### How to simulate a paid pix
+We open an endpoint to simulate a paid pix, so just use a invoicePixId on this service
+
+#### Request (JUST FOR SANDBOX MODE)
+```bash
+curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoicePixId}'
+```
+
+
 ### End of cicle. That's All. Thank you.
 
 #### Any Questions open a issue.
