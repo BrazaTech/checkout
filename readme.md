@@ -1,6 +1,6 @@
 # This is the Checkout repository.
 
-## Welcome to have the best integration experience with our product.
+## Welcome to the best integration experience with our product.
 
 - For more information visit [our website](https://www.brazabank.com.br/checkout/)
 - Flow of Checkout
