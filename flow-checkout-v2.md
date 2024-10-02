@@ -200,7 +200,7 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/1dc3c366-2417-4531-9c24
 This endpoint respose a same of response above, but, adding some fields, (codPartner and CodBranchOffice):
 
 ### Response of status of pix.
-We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
+We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUNDED)
 ```JSON 
 {
   "id": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
