@@ -209,7 +209,7 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUND)
   "receiverName": "Braza Bank SA",
   "receiverFinancialInstitutionName": "Flagship",
   "expirationDate": "2023-11-29T21:42:29.260Z",
-  "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUND",
+  "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUNDED",
   "codPartner": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
   "codBranchOffice": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
   "amountPixToPay": "46.52",
