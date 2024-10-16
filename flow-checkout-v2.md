@@ -39,7 +39,7 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/rates/v1/quotes' \
 -d '{
   "amount": 150.75,
   "currency": "USDBRL",
-  "externalId": "20240522114740205"
+  "externalId": "202410160852000"
 }'
 ```
 ### Response of Quotes
@@ -73,6 +73,8 @@ Now after we receive a response, save the code of quotation in this case "2b1e6e
 
 ## Step Three GET (Customer)
 ### Request to validate a CPF (a official brazilian social number)
+*Note: send X-CLIENT-CPF value masked*
+
 ```bash
 curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 -H 'X-CLIENT-CPF: 999.999.999-99' \
@@ -80,13 +82,15 @@ curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
 ```
 ### Response of client (success)
-
+*Note: which CPF after validation have a unique clienId*
 ```JSON
 {
     "clientId": "67f84c46-1216-4240-986d-2bbcc1b6d80a",
     "enabled": true
 }
 ```
+
+#### IMPORTANT: *SAVE clientId value*
 
 ### Response of client (success, however, with pending registration)
 - This situation occurs when our service is unable to obtain information about the consumer.
@@ -235,7 +239,7 @@ curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v
 
 #### Any Questions open a issue.
 
-### Track bonus - Accreditor, Partner and Branch Office information
+### Track bonus: Partner and Branch Office information
 
 #### Request of information of Partner
 ```bash
@@ -267,38 +271,12 @@ curl -L 'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-
   "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
 }
 ```
-
-#### Request informations about accreditor by id
-```bash
-curl -L 'https://sandbox-api.brazacheckout.com.br/v1/accreditor/593facf1-93ad-42a0-8f37-1010f705c1d2' \
--H 'accept: application/json' \
--H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
-```
-#### Response
-```JSON
-{
-  "id": "123e4567-e89b-12d3-a456-426655440000",
-  "officialName": "Example & Partner Ltd",
-  "displayName": "Braza On",
-  "brazaAccountUk": "312",
-  "relationshipManagerPartnerId": "1234567890",
-  "internalDisclosure": "This partner requires an exception on ...",
-  "logoPath": "https://domain.com/my/image.jpg",
-  "aboutAccreditor": "This partner requires an exception on ...",
-  "accreditorId": "123e4567-e89b-12d3-a456-426655440000",
-  "typeContact": 0,
-  "contentContact": "example@example.com",
-  "flagDeleted": 0,
-  "isDeleted": true
-}
-```
-
 #### List a sales by Id
 For this request we use a id of quotation to get a Sales information
 
 #### Request
 ```bash
-curl -L 'https://sandbox-sales.brazacheckout.com.br/v1/2b1e6e2a-184c-11ef-941b-0a58a9feac02' \
+curl -L 'https://sandbox-sales.brazacheckout.com.br/v3/2b1e6e2a-184c-11ef-941b-0a58a9feac02' \
 -H 'accept: application/json'
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
 ```
