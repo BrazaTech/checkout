@@ -32,7 +32,7 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 After we save a some information on response of login, use a accessToken on header authorization (JWT Authentication).
 
 ```bash
-curl -L 'https://sandbox-api.brazacheckout.com.br/rates/v1/quotes' \
+curl -L 'https://sandbox-rates.brazacheckout.com.br/v1/quotes' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' \
