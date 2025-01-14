@@ -1,7 +1,7 @@
 - [Return to readme](readme.md)
 # [Checkout BFF] Implementation guide [Deprecated]
-
-## This version is locked to new integrators. [See version 2.0](flow-checkout-v2.md)
+### This version is locked to new integrators. [See version 2.0](flow-checkout-v2.md)
+##### New credentials not be generated
 
 ### Step by Step of Checkout
 - Request /auth/login
