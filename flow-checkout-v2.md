@@ -1,12 +1,11 @@
 - [Return to readme](readme.md)
 # Flow of Checkout v2
-
-- presenting a new release of flow of request on checkout v2.
-- All endpoint of operation are versioned, we start with v1 some else
+- Presenting a new release of the request flow in checkout v2.
+- All operation operation are versioned, starting with v1.
 
 ## Step one POST (Login):
 ### Request
-- Some informations are required at this moment username and password
+- Some informations is required at this moment: username and password
 ```bash
 curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 -H 'Content-Type: application/json' \
@@ -19,17 +18,17 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 ### Response
 ```JSON
 {
-    "accessToken":"eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og",
-    "refreshToken":"eyJjdHki <<.. Supressed Content..>> YIYb3YAyFN9u4F4V_m8R-w",
+    "accessToken":"eyJraWQiO <<.. Suppressed Content..>> ASaygAXt8Og",
+    "refreshToken":"eyJjdHki <<.. Suppressed Content..>> YIYb3YAyFN9u4F4V_m8R-w",
     "ttl":3600,
     "username":"usernameSampleRegistered"
 }
 ```
-- In this case we save accessToken and refreshToken, we use in some request on this flow
+- In this case, save the accessToken and refreshToken, as they will be used in some requests in this flow.
 
 ## Step two POST (Rates)
 ### Request to create a quotation
-After we save a some information on response of login, use a accessToken on header authorization (JWT Authentication).
+After saving some information from the login response, use the accessToken in the authorization header (JWT Authentication).
 
 ```bash
 curl -L 'https://sandbox-rates.brazacheckout.com.br/v1/quotes' \
@@ -69,8 +68,7 @@ curl -L 'https://sandbox-rates.brazacheckout.com.br/v1/quotes' \
     }
 }
 ```
-Now after we receive a response, save the code of quotation in this case "2b1e6e2a-184c-11ef-941b-0a58a9feac02". So, this information is necessary to generate a pix.
-
+After receiving the response, save the quotation code, in this case "2b1e6e2a-184c-11ef-941b-0a58a9feac02". This information is necessary to generate a PIX.
 ## Step Three GET (Customer)
 ### Request to validate a CPF (a official brazilian social number)
 *Note: send X-CLIENT-CPF value masked*
@@ -91,7 +89,6 @@ curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 ```
 
 #### IMPORTANT: *SAVE clientId value*
-
 ### Response of client (success, however, with pending registration)
 - This situation occurs when our service is unable to obtain information about the consumer.
 ```JSON
@@ -114,22 +111,28 @@ curl -L 'https://sandbox-client.brazacheckout.com.br/v1' \
 ```
 For more informations read [here](https://sandbox-client.brazacheckout.com.br/docs#/Client/AppController_validateCpf)
 
-### If have a pending information call this:
-First we call
+### If have a pending information, call this:
+- First, call
 
 ```bash
-curl -L 'https://viacep.com.br/ws/66813420/json/'
+curl -X 'GET' \
+  'https://sandbox-address.brazacheckout.com.br/v1/cep/66813-720' \
+  -H 'accept: application/json'
 ```
-use this some fields of this response on next request body:
+Use some fields of this response in the next request body:
 ```JSON
 {
-  "cep": "66813-420", //zipCode
-  "logradouro": "Rua Sargento Joaquim Resende", //address
-  "complemento": "", //complement
-  "bairro": "Campina de Icoaraci (Icoaraci)", //neighborhood
-  "localidade": "Belém", // city
-  "uf": "PA", //state
-  "ibge": "1501402", //code
+  "cep_indice": 66813420,
+  "cep": "66813-420",
+  "logradouro": "Rua Sargento Joaquim Resende",
+  "complemento": "",
+  "unidade": "",
+  "bairro": "Campina de Icoaraci (Icoaraci)",
+  "localidade": "Belém",
+  "uf": "PA",
+  "estado": "Pará",
+  "regiao": "Norte",
+  "ibge": "1501402",
   "gia": "",
   "ddd": "91",
   "siafi": "0427"
@@ -164,7 +167,7 @@ Response of patch
 }
 ```
 
-So we use this value of clientId and id on Rates request (with alias name codQuote) to generate our pix:
+Use this value of clientId and id on Rates request (with alias name codQuote) to generate our PIX:
 
 ## Step Four POST (PIX)
 ### Request to Create a PIX
@@ -176,12 +179,12 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' \
 -d '{
   "codQuote": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
-  "codCustomer": "67f84c46-1216-4240-986d-2bbcc1b6d80a"
+  "codCustomer": "67f84c46-1216-4240-986d-2bbcc1b6d80a",
+  "numberOfInstallments": 1 <- always 1 for pix
 }'
 ```
 
 ### Response of PIX (success)
-
 ```JSON
 {
     "id": "1dc3c366-2417-4531-9c24-aa928b7add59",
@@ -193,7 +196,7 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
     "status": "CREATED"
 }
 ```
-Now save de id, with alias invoiceIdPix.
+Now save the id, with alias invoiceIdPix.
 
 ### Request GET status of pix
 ```bash
@@ -201,10 +204,9 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/1dc3c366-2417-4531-9c24
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
 ```
-This endpoint respose a same of response above, but, adding some fields, (codPartner and CodBranchOffice):
+This endpoint responds similarly to the response above, but adds some fields (codPartner and codBranchOffice):
 
 ### Response of status of pix.
-We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUNDED)
 ```JSON 
 {
   "id": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
@@ -213,7 +215,7 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUNDED)
   "receiverName": "Braza Bank SA",
   "receiverFinancialInstitutionName": "Flagship",
   "expirationDate": "2023-11-29T21:42:29.260Z",
-  "status": "CREATED" | "PAID" | "PENDING" | "EXPIRED" | "REFUNDED",
+  "status": "PENDING", // Possibles values: CREATED, PAID, PENDING, EXPIRED, REFUNDED
   "codPartner": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
   "codBranchOffice": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
   "amountPixToPay": "46.52",
@@ -224,77 +226,20 @@ We have three status on response (CREATED, PAID, PENDING, EXPIRED, REFUNDED)
 }
 ```
 ### How to simulate a paid pix
-We open an endpoint to simulate a paid pix, so just use a invoiceIdPix on this service
+We have an endpoint to simulate a paid PIX, so just use the invoiceIdPix on this service
 
 #### Request (JUST FOR SANDBOX MODE)
 ```bash
 curl --location --request POST 'https://sandbox-api.brazacheckout.com.br/utils/v1/pay/{invoiceIdPix}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-  "taxId":"{cpfOfCustomer}"
+  "taxId":"{cpfOfCustomer}" //Request a CPF or CNPJ to braza Team development
 }'
 ```
 
-### End of cicle. That's All. Thank you.
-
-#### Any Questions open a issue.
-
-### Track bonus: Partner and Branch Office information
-
-#### Request of information of Partner
-```bash
-curl -L 'https://sandbox-api.brazacheckout.com.br/v1/partner/e5db089c-f1e8-47a3-9572-dd11dd47fd34' \
--H 'accept: application/json' \
--H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
-```
-
-#### Response
-
-```JSON
-{
-  "migrationId": "1234567890",
-  "legalName": "Example & Partner Ltd.",
-  "tradeName": "Store XYZ",
-  "wpsAccountNumber": "99999.9999",
-  "observations": "This partner requires an exception on ...",
-  "description": "This partner is responsible for the sale of ...",
-  "logoImageUrl": "https://domain.com/my/image.jpg",
-  "address": {
-    "uuid": "string",
-    "streetName": "string",
-    "number": 0,
-    "city": "string",
-    "countryCod": 0,
-    "country": "string"
-  },
-  "accreditedFlag": true,
-  "webhookId": "bd3638b8-798d-4245-bcfc-f91da3e527d6"
-}
-```
-#### List a sales by Id
-For this request we use a id of quotation to get a Sales information
-
-#### Request
-```bash
-curl -L 'https://sandbox-sales.brazacheckout.com.br/v3/2b1e6e2a-184c-11ef-941b-0a58a9feac02' \
--H 'accept: application/json'
--H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
-```
-#### Response
-```JSON
-{
-  "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
-  "identifier": "NF-1234567890",
-  "clientName": "Michael Scott",
-  "clientCPF": "***.999.999-**",
-  "currency": "USDBRL",
-  "amount": 151.75,
-  "mdrValue": 1.75,
-  "liquidValue": 868.34,
-  "statusLabel": "Holding",
-  "statusName": "Aguardando",
-  "statusDescription": "O QR Code ainda não foi pago e o tempo de expiração ainda não foi alcançado.",
-  "date": "2024-01-01",
-  "time": "13:12:01"
-}
-```
+### End of cicle. That's All.
+- Any Questions open a issue.
+### Other links
+- [Flow Checkout v2 - without request document](flow-checkout-v2-without-document.md) NEW
+- [Additional requests](flow-checkout-v2-additional-request.md) NEW
+- [Base Url by environment](base-url-by-environment.md) NEW
