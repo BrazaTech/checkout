@@ -2,7 +2,7 @@
 # List of base url of services by environment
 ### UAT/SANDBOX
 - sandbox-api.brazacheckout.com.br/partners
-- sandbox-api.brazacheckout.com.br/rates
+- sandbox-rates.brazacheckout.com.br
 - sandbox-termofuse.brazacheckout.com.br
 - sandbox-address.brazacheckout.com.br
 - sandbox-sales.brazacheckout.com.br
