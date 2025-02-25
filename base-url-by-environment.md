@@ -14,16 +14,16 @@
 - Frontend of sales: sandbox-app.brazacheckout.com.br
 
 ### PROD
-partners.brazacheckout.com.br
-rates.brazacheckout.com.br
-termofuse.brazacheckout.com.br
-address.brazacheckout.com.br
-sales.brazacheckout.com.br
-pix.brazacheckout.com.br
-payment-methods.brazacheckout.com.br
-client.brazacheckout.com.br
-auth-cognito.brazacheckout.com.br
-authentication.brazacheckout.com.br
+- partners.brazacheckout.com.br
+- rates.brazacheckout.com.br
+- termofuse.brazacheckout.com.br
+- address.brazacheckout.com.br
+- sales.brazacheckout.com.br
+- pix.brazacheckout.com.br
+- payment-methods.brazacheckout.com.br
+- client.brazacheckout.com.br
+- auth-cognito.brazacheckout.com.br
+- authentication.brazacheckout.com.br
 
 Frontend of sales: app.brazacheckout.com.br
 
