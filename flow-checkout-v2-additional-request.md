@@ -76,14 +76,52 @@ dateStart and dateEnd is range date of sales, offset to paginate data response
       "amount": 151.75,
       "mdrValue": 1.75,
       "liquidValue": 868.34,
-      "statusLabel": "Holding",
-      "statusName": "Aguardando",
+      "statusLabel": "Holding", //Expected values: success, holding and canceled
+      "statusName": "Aguardando", //Expected values: Recebido, Processado, Aguardando, Expirado, Devolvido, Inválido
       "statusDescription": "O QR Code ainda não foi pago e o tempo de expiração ainda não foi alcançado.",
       "date": "2024-01-01",
-      "time": "13:12:01"
+      "time": "13:12:01",
+      "statusId": 1,
+      "isExchangeExecuted": 0, //Expected values: 0 or 1
+      "executionMethod": 1, //Just for internal use of Braza Checkout
+      "paymentMethod": "pix" 
     }
   ],
   "offset": 0,
   "totalItems": 1
+}
+```
+
+#### List of sale by id (quotation id)
+If the PIX query endpoint is no longer possible because it has expired, there is another endpoint for individual consultation by ID for the generated sale. 
+Just use the quotation ID to check the details of this transaction.
+
+#### Request
+```bash
+curl -L 'https://sandbox-sales.brazacheckout.com.br/v3/2b1e6e2a-184c-11ef-941b-0a58a9feac02' \
+-H 'accept: application/json'
+-H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og'
+```
+
+#### Response
+```JSON
+{
+  "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
+  "identifier": "NF-1234567890",
+  "clientName": "Michael Scott",
+  "clientCPF": "***.999.999-**",
+  "currency": "USDBRL",
+  "amount": 151.75,
+  "mdrValue": 1.75,
+  "liquidValue": 868.34,
+  "statusLabel": "Holding", //Expected values: success, holding and canceled
+  "statusName": "Aguardando", //Expected values: Recebido, Processado, Aguardando, Expirado, Devolvido, Inválido
+  "statusDescription": "O QR Code ainda não foi pago e o tempo de expiração ainda não foi alcançado.",
+  "date": "2024-01-01",
+  "time": "13:12:01",
+  "statusId": 1,
+  "isExchangeExecuted": 0, //Expected values: 0 or 1
+  "executionMethod": 1, //Just for internal use of Braza Checkout
+  "paymentMethod": "pix" 
 }
 ```
