@@ -125,3 +125,32 @@ curl -L 'https://sandbox-sales.brazacheckout.com.br/v3/2b1e6e2a-184c-11ef-941b-0
   "paymentMethod": "pix" 
 }
 ```
+
+#### Notification
+When configured for events to be sent via request, a POST will be made with the payloads informed below depending on each type of notification.
+REST notifications can be configured with a Basic Header to be used as an authenticator.
+Any return other than 2XX will be considered an error when sending.
+
+Eexample of response on webhook OK PAYMENT:
+```JSON
+{
+  "codQuote": "ad4e9ae4-e571-11ef-9b7f-0a58a9feac02",
+  "status": "PAID"
+}
+```
+
+example of response on webhook NOT OK PAYMENT (REFUNDED):
+```JSON
+{
+  "codQuote": "ad4e9ae4-e571-11ef-9b7f-0a58a9feac02",
+  "status": "REFUNDED"
+}
+``` 
+
+example of response on webhook NOT OK PAYMENT (EXPIRED):
+```JSON
+{
+  "codQuote": "ad4e9ae4-e571-11ef-9b7f-0a58a9feac02",
+  "status": "EXPIRED"
+}
+```
