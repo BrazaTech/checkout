@@ -24,8 +24,7 @@
 - client.brazacheckout.com.br
 - auth-cognito.brazacheckout.com.br
 - authentication.brazacheckout.com.br
-
-Frontend of sales: app.brazacheckout.com.br
+- Frontend of sales: app.brazacheckout.com.br
 
 ### Other links
 - [Flow Checkout v2 - without request document](flow-checkout-v2-without-document.md) NEW
