@@ -2,7 +2,7 @@
 # List of base url of services by environment
 ### UAT/SANDBOX
 - sandbox-api.brazacheckout.com.br/partners
-- sandbox-rates.brazacheckout.com.br
+- sandbox-rates.brazacheckout.com.br [*1*]
 - sandbox-termofuse.brazacheckout.com.br
 - sandbox-address.brazacheckout.com.br
 - sandbox-sales.brazacheckout.com.br
@@ -25,6 +25,8 @@
 - auth-cognito.brazacheckout.com.br
 - authentication.brazacheckout.com.br
 - Frontend of sales: app.brazacheckout.com.br
+
+NOTE[1]: ***If you are still using api.brazacheckout.com.br/rates for quote operations, please switch to rates.brazacheckout.com.br. This first service will be deactivated on June 30, 2025.***
 
 ### Other links
 - [Flow Checkout v2 - without request document](flow-checkout-v2-without-document.md) NEW
