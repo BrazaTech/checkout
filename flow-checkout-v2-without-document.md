@@ -35,35 +35,31 @@ curl -L 'https://sandbox-rates.brazacheckout.com.br/v1/quotes' \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' \
 -d '{
-  "amount": 150.75,
-  "currency": "USDBRL",
-  "externalId": "202501141131125"
+    "amount": 15.22,
+    "currency": "USDBRL",
+    "externalId": "20250416141532808"
 }'
 ```
 ### Response of Quotes
 ```JSON
 {
     "pix": {
-        "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
-        "fgnQuantity": "151.75",
-        "brlQuantity": "868.34",
-        "quote": "5.31",
-        "iof": "9.45",
-        "iofPercentage": "1.1",
-        "vet": "5.7222",
-        "feesAmount": "53.10",
-        "mdrPayer": "1.75"
+        "id": "6afd291c-1ae6-11f0-bcfe-0a58a9feac02",
+        "fgnQuantity": "15.45",
+        "brlQuantity": "93.65",
+        "quote": "5.85",
+        "iof": "0.35",
+        "iofPercentage": "0.38",
+        "vet": "6.0615",
+        "feesAmount": "2.92",
+        "mdrPayer": "0.23"
     },
     "internationalCard": {
-        "id": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
-        "fgnQuantity": "151.75",
-        "brlQuantity": "882.99",
-        "quote": "5.31",
-        "iof": "36.89",
-        "iofPercentage": "1.1",
-        "vet": "731.24",
-        "feesAmount": "40.31",
-        "mdrPayer": "1.75"
+        "id": "6afd291c-1ae6-11f0-bcfe-0a58a9feac02",
+        "brlQuantity": "97.74",
+        "iof": "2.85",
+        "vet": "82.29",
+        "feesAmount": "4.51"
     }
 }
 ```
@@ -77,29 +73,35 @@ curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix' \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' \
 -d '{
-  "codQuote": "2b1e6e2a-184c-11ef-941b-0a58a9feac02",
-  "codCustomer": "",
-  "numberOfInstallments": 1 <- always 1 on pix
+    "codQuote": "6afd291c-1ae6-11f0-bcfe-0a58a9feac02",
+    "codCustomer": "",
+    "numberOfInstallments": 1  <- always 1 on pix
 }'
 ```
 
 ### Response of PIX (success)
 ```JSON
 {
-    "id": "1dc3c366-2417-4531-9c24-aa928b7add59",
-    "key": "a5480a17-6922-4606-ac18-f00a217ed771",
-    "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01iAwGlSpkZJPOJfjoMCKLGf2ZTk2lsgiOZu3l9DFlF52040000530398654071076.485802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***63048296",
-    "receiverName": "Braza Bank SA",
-    "receiverFinancialInstitutionName": "FLAGSHIP INSTITUICAO DE PAGAMENTOS LTDA",
-    "expirationDate": "2024-05-23T21:03:53.880Z",
-    "status": "CREATED"
+    "expirationDate": "2025-04-16 17:35:42",
+    "id": "3904ce7a-69f9-41c7-b1e5-7665ba49b41b",
+    "key": "0195adce-e084-f419-55e9-e01cce7cc513",
+    "qrcode": "00020101021226810014br.gov.bcb.pix2559brcode-h.sandbox.trio.com.br/cob/01JRZSJTSN2QR5NDB{{supressed content}}0496EB",
+    "receiverFinancialInstitutionName": "TRIO_NOVA",
+    "receiverName": "Braza Cripto SA",
+    "qrCodeImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAEUCAYA{{supressed content}}AAAASUVORK5CYII=",
+    "status": "CREATED",
+    "codPartner": "e872001c-8e96-4dd3-bbd4-8580e9c41eb3",
+    "codBranchOffice": "7ec80e31-2735-4c4c-ac05-cc06ca8216c2",
+    "quantityBRL": "93.65",
+    "quantityFGN": "15.45",
+    "currency": "USDBRL"
 }
 ```
 Now save the id, with the alias invoiceIdPix.
 
 ### Request GET status of pix
 ```bash
-curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/1dc3c366-2417-4531-9c24-aa928b7add59/status' \
+curl -L 'https://sandbox-pix.brazacheckout.com.br/v1/pix/3904ce7a-69f9-41c7-b1e5-7665ba49b41b/status' \
 -H 'Accept: application/json' \
 -H 'Authorization: Bearer eyJraWQiO <<.. Supressed Content..>> ASaygAXt8Og' 
 ```
@@ -108,21 +110,20 @@ This endpoint respose a same of response above, but, adding some fields, (codPar
 ### Response of status of pix.
 ```JSON 
 {
-  "id": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
-  "key": "de31d0d0-129e-45e5-b7ed-2176b416c005",
-  "qrcode": "00020101021226990014br.gov.bcb.pix2577pix-h.bpp.com.br/23114447/qrs1/v2/01YBsrpuoS8OhU1yq58aXQ9GeMHlDvdL7mL4AtzI7vK520400005303986540550.005802BR5921BRAZA B S B DE CAMBIO6009SAO PAULO62070503***6304BD9E",
-  "receiverName": "Braza Bank SA",
-  "receiverFinancialInstitutionName": "Flagship",
-  "expirationDate": "2023-11-29T21:42:29.260Z",
-  "status": "PENDING", // Possibles values: CREATED, PAID, PENDING, EXPIRED, REFUNDED
-  "codPartner": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
-  "codBranchOffice": "b481b93b-01f3-4f8d-865b-a4b265ee6cf5",
-  "amountPixToPay": "46.52",
-  "quoteValue": "5.76",
-  "amountFee": "0.49",
-  "iof": "0.38",
-  "iofPercentage": "0.2"
-}
+    "expirationDate": "2025-04-16 17:35:42",
+    "id": "3904ce7a-69f9-41c7-b1e5-7665ba49b41b",
+    "key": "0195adce-e084-f419-55e9-e01cce7cc513",
+    "qrcode": "00020101021226810014br.gov.bcb.pix2559brcode-h.sandbox.trio.com.br/cob/01JRZSJTSN2QR5NDB{{supressed content}}0496EB",
+    "receiverFinancialInstitutionName": "TRIO_NOVA",
+    "receiverName": "Braza Cripto SA",
+    "qrCodeImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARQAAAEUCAYA{{supressed content}}AAAASUVORK5CYII=",
+    "status": "PENDING", // Possibles values: CREATED, PAID, PENDING, EXPIRED, REFUNDED
+    "codPartner": "e872001c-8e96-4dd3-bbd4-8580e9c41eb3",
+    "codBranchOffice": "7ec80e31-2735-4c4c-ac05-cc06ca8216c2",
+    "quantityBRL": "93.65",
+    "quantityFGN": "15.45",
+    "currency": "USDBRL"
+} 
 ```
 
 ### How to Simulate a Paid PIX
