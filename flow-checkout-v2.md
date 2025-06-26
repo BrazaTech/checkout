@@ -29,7 +29,7 @@ curl -L 'https://sandbox-authentication.brazacheckout.com.br/auth/login' \
 
 ## PART 2
 ### Request
-Para que as configurações a respeito do seu usuário e loja sejam entendido, nos disponibilizamos um endpoint com estas informações
+So that the settings regarding your user and store are understood, we provide an endpoint with this information.
 
 ```bash
 curl 'https://sandbox-authentication.brazacheckout.com.br/users/information/details' \
